@@ -112,3 +112,25 @@ export function updateLead(token, leadId, payload) {
     timeout: "60s",
   });
 }
+
+export function sendLeadEmail(token, leadId, payload) {
+  const boundary = `----K6Boundary${Date.now()}`;
+
+  let body = "";
+
+  for (const [key, value] of Object.entries(payload)) {
+    body += `--${boundary}\r\n`;
+    body += `Content-Disposition: form-data; name="${key}"\r\n\r\n`;
+    body += `${Array.isArray(value) ? JSON.stringify(value) : value}\r\n`;
+  }
+
+  body += `--${boundary}--\r\n`;
+
+  return http.post(`${CONFIG.ENV.BASE_URL}/api/leads/${leadId}/email`, body, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": `multipart/form-data; boundary=${boundary}`,
+    },
+    timeout: "60s",
+  });
+}

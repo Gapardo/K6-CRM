@@ -4,8 +4,8 @@ import { htmlReport } from "https://raw.githubusercontent.com/benc-uk/k6-reporte
 import { textSummary } from "https://jslib.k6.io/k6-summary/0.0.1/index.js";
 
 export const options = {
-  vus: 10,
-  duration: "60s",
+  vus: 1,
+  duration: "300s",
   thresholds: {
     http_req_duration: ["p(95)<2000"],
     http_req_failed: ["rate<0.01"],

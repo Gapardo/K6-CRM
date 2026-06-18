@@ -55,6 +55,7 @@ export default function (data) {
   }
 
   const leads = body?.data?.data || [];
+  console.log("LEADS RESPONSE:", JSON.stringify(body, null, 2));
 
   // ====================
   // DETAIL LEAD
