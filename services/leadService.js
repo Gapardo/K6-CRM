@@ -134,3 +134,24 @@ export function sendLeadEmail(token, leadId, payload) {
     timeout: "60s",
   });
 }
+
+export function convertLead(token, leadId) {
+  return http.post(`${CONFIG.ENV.BASE_URL}/api/leads/${leadId}/convert`, null, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+
+export function callLead(token, leadId, payload) {
+  return http.post(
+    `${BASE_URL}/api/leads/${leadId}/call`,
+    JSON.stringify(payload),
+    {
+      headers: {
+        ...headers(token),
+        "Content-Type": "application/json",
+      },
+    },
+  );
+}

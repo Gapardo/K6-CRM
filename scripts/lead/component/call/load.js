@@ -1,4 +1,4 @@
-import { options } from "../../../../config/soak.js";
+import { options } from "../../../../config/load.js";
 import { generateReport } from "../../../../utils/reportHelper.js";
 
 export { options };
@@ -6,4 +6,5 @@ export { options };
 export {
   setupTest as setup,
   default,
-} from "../../../../scenarios/lead/leadComposeEmailScenario.js";
+} from "../../../../scenarios/lead/callLeadScenario.js";
+

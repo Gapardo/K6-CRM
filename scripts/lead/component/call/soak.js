@@ -6,4 +6,4 @@ export { options };
 export {
   setupTest as setup,
   default,
-} from "../../../../scenarios/lead/leadComposeEmailScenario.js";
+} from "../../../../scenarios/lead/callLeadScenario.js";
