@@ -13,28 +13,29 @@ export function setupTest() {
 
 export default function (data) {
   const token = data.token;
+
   const listRes = getLeads(token);
+
   const success = check(listRes, {
-    "get leads": (r) => r && r.status === 200,
+    "get leads": (r) => r?.status === 200,
+    "response time < 2 sec": (r) => r?.timings?.duration < 2000,
   });
 
   if (!success) {
     console.warn(`Get Leads Failed | Status=${listRes?.status}`);
-
-    sleep(Math.random() * 2 + 1);
     return;
   }
 
-  const body = safeJson(listRes);
-  console.log("LIST RESPONSE:", JSON.stringify(body));
-
   if (!body) {
     console.warn("Invalid JSON Response");
-    sleep(Math.random() * 2 + 1);
     return;
   }
 
   const leads = Array.isArray(body?.data) ? body.data : [];
+
+  check(body, {
+    "success true": (b) => b.success === true,
+  });
 
   check(leads, {
     "lead data exists": (arr) => arr.length > 0,

@@ -6,7 +6,7 @@ import { searchLead } from "../../services/leadService.js";
 import { randomFromArray } from "../../utils/random.js";
 import { safeJson } from "../../utils/helper.js";
 
-const keywords = ["test", "john", "sales", "crm", "lead", "vip"];
+const keywords = ["test", "john", "sales", "crm", "lead", "vip", "Akbar"];
 
 export function setupTest() {
   const res = login("CRMTensora1@test.com", "Password123");
@@ -35,8 +35,11 @@ export default function (data) {
 
   const leads = Array.isArray(body?.data) ? body.data : [];
 
-  check(body, {
-    "search success": (b) => b.success === true,
+  check(searchRes, {
+    "search leads": (r) => r.status === 200,
+    "search success": () => body.success === true,
+    "search result exists": () => Array.isArray(leads),
+    "response time < 2 sec": (r) => r.timings.duration < 2000,
   });
 
   console.log(`[SEARCH] keyword="${keyword}" | results=${leads.length}`);
